@@ -1,0 +1,18 @@
+query getCoursePaymentPlans($slug: String!) {
+    course(slug: $slug) {
+        id
+        slug
+        name
+        paymentPlans {
+            id
+            title
+            description
+            details {
+                id
+                title
+                amount
+                description
+            }
+        }
+    }
+}

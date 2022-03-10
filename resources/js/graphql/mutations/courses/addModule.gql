@@ -1,0 +1,30 @@
+mutation createModule (
+    $name: String!,
+    $course_id: ID!,
+    $description: String,
+    $lessons: ModuleLessonHasMany
+) {
+    createModule (
+        input: {
+            name: $name,
+            course_id: $course_id,
+            description: $description,
+            lessons: $lessons
+        }
+    ) {
+        id
+        name
+        description
+        lessons {
+            id
+            title
+            description
+            period
+            files {
+                id
+                getPathUrl
+                name
+            }
+        }
+    }
+}

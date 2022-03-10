@@ -1,0 +1,12 @@
+extend type Query {
+    faqs(title: String @where(operator: "like"), orderBy: _ @orderBy(columns: ["created_at"])): [Faq!]! @paginate(defaultCount: 10)
+    faq(slug: String! @eq): Faq @first
+}
+
+type Faq @model(class: "\\App\\Models\\Courses\\Faq") {
+    id: ID!
+    question: String!
+    answer: String
+    created_at: DateTime!
+    updated_at: DateTime!
+}

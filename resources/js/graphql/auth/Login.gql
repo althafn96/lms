@@ -1,0 +1,17 @@
+mutation Login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+        id,
+        email,
+        loggable {
+            __typename
+            ... on Admin {
+                full_name
+                display_picture
+            }
+            ... on Instructor {
+                full_name
+                display_picture
+            }
+        }
+    }
+}

@@ -1,0 +1,1 @@
+import{_ as e}from"./app.52277fe1.js";import{i as t,l as o,m as c}from"./vendor.9ac200cc.js";const n={},_={class:"content d-flex flex-column flex-column-fluid",id:"kt_content"},s=c("div",{class:"container-xxl",id:"kt_content_container"}," Not Found ",-1),a=[s];function r(l,d){return t(),o("div",_,a)}var m=e(n,[["render",r]]);export{m as default};

@@ -1,0 +1,54 @@
+extend type Query {
+    students(first_name: String @where(operator: "like"), last_name: String @where(operator: "like"), orderBy: _ @orderBy(columns: ["created_at"])): [Student!]! @paginate(defaultCount: 10)
+    student(slug: String! @eq): Student @first
+}
+
+extend type Mutation {
+    createStudent(input: StudentInput! @spread): Student @create
+    updateStudent(id: ID!, input: StudentInput! @spread): Student @update
+    deleteStudent(id: ID!): Student @delete
+}
+
+input StudentInput {
+    first_name: String!
+    last_name: String!
+    display_picture: Upload
+    contact_number: String
+    address: String
+    dob: String
+    gender: String
+    user: StudentUserMorphOne
+}
+
+input StudentUserMorphOne {
+    create: CreateStudentUserInput
+    update: UpdateStudentUserInput
+}
+
+input CreateStudentUserInput {
+    email: String!
+    password: String! @hash
+    status: Int!
+}
+
+input UpdateStudentUserInput {
+    id: ID!
+    email: String
+    password: String @hash
+    status: Int!
+}
+
+type Student @model(class: "\\App\\Models\\Users\\Student") {
+    id: ID!
+    first_name: String!
+    last_name: String!
+    full_name: String @field(resolver: "App\\Models\\Users\\Student@getFullName")
+    dob: String
+    gender: String
+    display_picture: String @field(resolver: "App\\Models\\Users\\Student@getDisplayPictureUrl")
+    slug: String
+    created_at: DateTime!
+    updated_at: DateTime!
+    humanized_created_at: String @field(resolver: "App\\Models\\Users\\Student@humanizedCreatedAt")
+    user: User! @morphOne
+}

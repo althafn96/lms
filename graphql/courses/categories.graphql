@@ -1,0 +1,37 @@
+extend type Query {
+    categories(name: String @where(operator: "like"), orderBy: _ @orderBy(columns: ["created_at"])): [Category!]! @paginate(defaultCount: 10)
+    category(slug: String! @eq): Category @first
+}
+
+extend type Mutation {
+    createCategory(input: CategoryInput! @spread): Category @create
+    updateCategory(id: ID!, input: CategoryInput! @spread): Category @update
+    deleteCategory(id: ID!): Category @delete
+}
+
+input CategoryInput {
+    name: String!
+    description: String
+    icon: Upload
+    image: Upload
+    parent_id: ID
+    status: Int!
+    is_featured: Int
+}
+
+type Category @model(class: "\\App\\Models\\Courses\\Category") {
+    id: ID!
+    name: String!
+    description: String
+    icon: String @field(resolver: "App\\Models\\Courses\\Category@getIconUrl")
+    image: String @field(resolver: "App\\Models\\Courses\\Category@getImageUrl")
+    parent: Category @belongsTo
+    status: Boolean!
+    is_featured: Boolean
+    slug: String
+    created_at: DateTime!
+    updated_at: DateTime!
+    humanized_created_at: String @field(resolver: "App\\Models\\Courses\\Category@humanizedCreatedAt")
+    humanized_updated_at: String @field(resolver: "App\\Models\\Courses\\Category@humanizedUpdatedAt")
+    courses: [Course!] @belongsToMany
+}

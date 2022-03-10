@@ -1,0 +1,20 @@
+mutation addLocation (
+    $name: String!,
+    $address: String,
+    $phone_numbers: String,
+    $emails: String,
+    $status: Int!
+) {
+    createLocation (
+        input: {
+            name: $name,
+            address: $address,
+            phone_numbers: $phone_numbers,
+            emails: $emails,
+            status: $status
+        }
+    ) {
+        id
+        name
+    }
+}

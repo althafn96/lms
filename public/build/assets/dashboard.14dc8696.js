@@ -1,0 +1,1 @@
+import{u as t}from"./app.52277fe1.js";import{g as o,i as s,l as c,m as n}from"./vendor.9ac200cc.js";const a={class:"content d-flex flex-column flex-column-fluid",id:"kt_content"},r=n("div",{class:"container-xxl",id:"kt_content_container"},null,-1),l=[r],p={setup(d){const e=t();return e.title="Dashboard",e.breadcrumbs=[],o(()=>{}),(i,_)=>(s(),c("div",a,l))}};export{p as default};

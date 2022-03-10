@@ -1,0 +1,27 @@
+query getBatches ($page: Int, $name: String) {
+    batches (page: $page, name: $name, orderBy: [{ column: CREATED_AT, order: DESC }]) {
+        data {
+            name
+            course {
+                name
+            }
+            location {
+                name
+            }
+            commences_on
+            completes_on
+            humanized_updated_at
+            slug
+        }
+        paginatorInfo {
+            count
+            currentPage
+            firstItem
+            hasMorePages
+            lastItem
+            lastPage
+            perPage
+            total
+        }
+    }
+}

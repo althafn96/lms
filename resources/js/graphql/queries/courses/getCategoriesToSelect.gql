@@ -1,0 +1,11 @@
+query getCategoriesToSelect ($page: Int) {
+    categories (page: $page) {
+        data {
+            id
+            name
+        }
+        paginatorInfo {
+            hasMorePages
+        }
+    }
+}

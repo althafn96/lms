@@ -1,0 +1,36 @@
+mutation updateCategory (
+    $id: ID!,
+    $name: String!,
+    $description: String,
+    $icon: Upload,
+    $image: Upload,
+    $status: Int!,
+    $is_featured: Int,
+    $parent_id: ID
+) {
+    updateCategory (
+        id: $id,
+        input: {
+            name: $name,
+            description: $description,
+            icon: $icon,
+            image: $image,
+            status: $status,
+            is_featured: $is_featured,
+            parent_id: $parent_id
+        }
+    ) {
+        id
+        name
+        description
+        icon
+        image
+        parent {
+            name
+            slug
+        }
+        status
+        is_featured
+        slug
+    }
+}

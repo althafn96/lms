@@ -1,0 +1,56 @@
+extend type Query {
+    paymentPlans(course_id: ID! @where(operator: "="), orderBy: _ @orderBy(columns: ["created_at"])): [PaymentPlan!]! @all
+    paymentPlan(id: ID! @eq): PaymentPlan @first
+}
+
+extend type Mutation {
+    createPaymentPlan(input: PaymentPlanInput! @spread): PaymentPlan @create
+    updatePaymentPlan(id: ID!, input: PaymentPlanInput! @spread): PaymentPlan @update
+    deletePaymentPlan(id: ID!): PaymentPlan @delete
+}
+
+input PaymentPlanInput {
+    title: String!
+    course_id: ID!
+    description: String
+    details: PaymentPlanDetailHasMany
+}
+
+input PaymentPlanDetailHasMany {
+    create: [CreatePaymentPlanDetailHasMany!],
+    update: [UpdatePaymentPlanDetailHasMany!],
+    delete: [ID!]
+}
+
+input CreatePaymentPlanDetailHasMany {
+    title: String
+    description: String
+    amount: String
+}
+
+input UpdatePaymentPlanDetailHasMany {
+    id: ID!
+    title: String
+    description: String
+    amount: String
+}
+
+type PaymentPlan @model(class: "\\App\\Models\\Courses\\PaymentPlan") {
+    id: ID!
+    title: String!
+    description: String
+    course: Course! @belongsTo
+    details: [PaymentPlanDetail!] @hasMany
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type PaymentPlanDetail @model(class: "\\App\\Models\\Courses\\PaymentPlanDetail") {
+    id: ID!
+    title: String!
+    amount: Float!
+    description: String
+    paymentPlan: PaymentPlan! @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+}

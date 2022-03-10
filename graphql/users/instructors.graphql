@@ -1,0 +1,58 @@
+extend type Query {
+    instructors(first_name: String @where(operator: "like"), last_name: String @where(operator: "like"), orderBy: _ @orderBy(columns: ["created_at"])): [Instructor!]! @paginate(defaultCount: 10)
+    instructor(slug: String! @eq): Instructor @first
+}
+
+extend type Mutation {
+    createInstructor(input: InstructorInput! @spread): Instructor @create
+    updateInstructor(id: ID!, input: InstructorInput! @spread): Instructor @update
+    deleteInstructor(id: ID!): Instructor @delete
+}
+
+input InstructorInput {
+    first_name: String!
+    last_name: String!
+    bio: String
+    display_picture: Upload
+    contact_number: String
+    address: String
+    user: InstructorUserMorphOne
+    locations: LocationBelongsToMany
+}
+
+input LocationBelongsToMany {
+    sync: [ID!]
+}
+
+input InstructorUserMorphOne {
+    create: CreateInstructorUserInput
+    update: UpdateInstructorUserInput
+}
+
+input CreateInstructorUserInput {
+    email: String!
+    password: String! @hash
+    status: Int!
+}
+
+input UpdateInstructorUserInput {
+    id: ID!
+    email: String
+    password: String @hash
+    status: Int!
+}
+
+type Instructor @model(class: "\\App\\Models\\Users\\Instructor") {
+    id: ID!
+    first_name: String!
+    last_name: String!
+    full_name: String @field(resolver: "App\\Models\\Users\\Instructor@getFullName")
+    bio: String
+    display_picture: String @field(resolver: "App\\Models\\Users\\Instructor@getDisplayPictureUrl")
+    slug: String
+    created_at: DateTime!
+    updated_at: DateTime!
+    humanized_created_at: String @field(resolver: "App\\Models\\Users\\Instructor@humanizedCreatedAt")
+    user: User! @morphOne
+    locations: [Location!] @belongsToMany
+}

@@ -1,0 +1,28 @@
+mutation updateInstructor (
+    $id: ID!,
+    $first_name: String!,
+    $last_name: String!,
+    $bio: String,
+    $display_picture: Upload,
+    $contact_number: String,
+    $address: String,
+    $user: InstructorUserMorphOne,
+    $locations: LocationBelongsToMany
+) {
+    updateInstructor (
+        id: $id,
+        input: {
+            first_name: $first_name,
+            last_name: $last_name,
+            bio: $bio,
+            display_picture: $display_picture,
+            contact_number: $contact_number,
+            address: $address,
+            user: $user,
+            locations: $locations
+        }
+    ) {
+        full_name
+        slug
+    }
+}

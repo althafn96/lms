@@ -1,0 +1,27 @@
+mutation updateLocation (
+    $id: ID!,
+    $name: String!,
+    $address: String,
+    $phone_numbers: String,
+    $emails: String,
+    $status: Int!
+) {
+    updateLocation (
+        id: $id,
+        input: {
+            name: $name,
+            address: $address,
+            phone_numbers: $phone_numbers,
+            emails: $emails,
+            status: $status
+        }
+    ) {
+        id
+        name
+        address
+        phone_numbers
+        emails
+        status
+        slug
+    }
+}

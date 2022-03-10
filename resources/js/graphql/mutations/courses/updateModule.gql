@@ -1,0 +1,32 @@
+mutation updateModule (
+    $id: ID!,
+    $course_id: ID!,
+    $name: String!,
+    $description: String,
+    $lessons: ModuleLessonHasMany
+) {
+    updateModule (
+        id: $id,
+        input: {
+            name: $name,
+            course_id: $course_id,
+            description: $description,
+            lessons: $lessons
+        }
+    ) {
+        id
+        name
+        description
+        lessons {
+            id
+            title
+            description
+            period
+            files {
+                id
+                getPathUrl
+                name
+            }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+query getCategory($slug: String!) {
+    category(slug: $slug) {
+        id
+        name
+        description
+        icon
+        image
+        parent {
+            id
+            name
+            slug
+        }
+        status
+        is_featured
+        slug
+    }
+}

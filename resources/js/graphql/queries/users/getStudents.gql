@@ -1,0 +1,23 @@
+query getStudents ($page: Int, $name: String) {
+    students (page: $page, first_name: $name, last_name: $name, orderBy: [{ column: CREATED_AT, order: DESC }]) {
+        data {
+            full_name
+            display_picture
+            humanized_created_at
+            slug
+            user {
+                email
+            }
+        }
+        paginatorInfo {
+            count
+            currentPage
+            firstItem
+            hasMorePages
+            lastItem
+            lastPage
+            perPage
+            total
+        }
+    }
+}

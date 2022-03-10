@@ -1,0 +1,45 @@
+//
+// Theme style(coming soon)
+//
+
+// Mode
+$mode: dark;
+
+// Initialize
+@import "init";
+
+// Components
+@import "components/components";
+
+
+// Layout
+@import "layout/layout";
+@import "layout/docs/layout";
+
+
+.page-loading {
+    background-color: #000;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.page-loading div:nth-child(2) {
+    display: none !important;
+}
+
+
+.loading-section {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lh-50 {
+    height: 300px;
+}

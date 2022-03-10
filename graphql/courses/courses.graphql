@@ -1,0 +1,155 @@
+extend type Query {
+    courses(name: String @where(operator: "like"), orderBy: _ @orderBy(columns: ["created_at"])): [Course!]! @paginate(defaultCount: 10)
+    course(slug: String! @eq): Course @first
+}
+
+extend type Mutation {
+    createCourse(input: CourseInput! @spread): Course @create
+    updateCourse(id: ID!, input: CourseInput! @spread): Course @update
+    deleteCourse(id: ID!): Course @delete
+}
+
+input CourseInput {
+    name: String!
+    short_description: String
+    long_description: String
+    prerequisites: String
+    thumbnail: Upload
+    cover_img: Upload
+    status: Int!
+    is_featured: Int
+    categories: CategoryBelongsToMany
+    skills: SkillBelongsToMany
+    instructors: InstructorBelongsToMany
+    faqs: FaqBelongsToMany
+    modules: ModuleHasMany
+    locations: LocationBelongsToMany
+}
+
+input CategoryBelongsToMany {
+    sync: [ID!]
+}
+
+input SkillBelongsToMany {
+    sync: [ID!],
+    create: [CreateSkillInput!]
+}
+
+input FaqBelongsToMany {
+    sync: [ID!],
+    create: [CreateFaqInput!],
+    update: [UpdateFaqInput!]
+}
+
+input ModuleHasMany {
+    update: [UpdateModuleInput!],
+    create: [CreateModuleInput!],
+    delete: [ID!]
+}
+
+input CreateSkillInput {
+    title: String!
+}
+
+input CreateFaqInput {
+    question: String!
+    answer: String!
+}
+
+input UpdateFaqInput {
+    id: ID!
+    question: String!
+    answer: String!
+}
+
+input CreateModuleInput {
+    name: String!
+    description: String
+    period: String
+    lessons: LessonHasMany
+}
+
+input UpdateModuleInput {
+    id: ID!
+    name: String!
+    description: String
+    lessons: LessonHasMany
+}
+
+input LessonHasMany {
+    create: [CreateLessonHasMany!],
+    update: [UpdateLessonHasMany!],
+    delete: [ID!]
+}
+
+input CreateLessonHasMany {
+    title: String
+    description: String
+    period: String
+    files: LessonFileHasMany
+}
+
+input UpdateLessonHasMany {
+    id: ID!
+    title: String
+    description: String
+    period: String
+    files: LessonFileHasMany
+}
+
+# input CreateLessonInput {
+#     title: String!
+#     description: String
+#     period: String
+#     files: LessonFileHasMany
+# }
+
+# input UpdateLessonInput {
+#     id: ID!
+#     title: String!
+#     description: String
+#     period: String
+#     files: LessonFileHasMany
+# }
+
+input LessonFileHasMany {
+    create: [CreateLessonFileInput!],
+    delete: [ID!]
+}
+
+input CreateLessonFileInput {
+    name: String
+    path: Upload
+}
+
+input InstructorBelongsToMany {
+    sync: [ID!]
+}
+
+input LocationBelongsToMany {
+    sync: [ID!]
+}
+
+type Course @model(class: "\\App\\Models\\Courses\\Course") {
+    id: ID!
+    name: String!
+    short_description: String
+    long_description: String
+    prerequisites: String
+    thumbnail: String @field(resolver: "App\\Models\\Courses\\Course@getThumbnailUrl")
+    cover_img: String @field(resolver: "App\\Models\\Courses\\Course@getCoverImageUrl")
+    status: Boolean!
+    is_featured: Boolean
+    slug: String
+    created_at: DateTime!
+    updated_at: DateTime!
+    humanized_created_at: String @field(resolver: "App\\Models\\Courses\\Course@humanizedCreatedAt")
+    humanized_updated_at: String @field(resolver: "App\\Models\\Courses\\Course@humanizedUpdatedAt")
+    categories: [Category!] @belongsToMany
+    skills: [Skill!] @belongsToMany
+    instructors: [Instructor!] @belongsToMany
+    faqs: [Faq!] @belongsToMany
+    modules: [Module!] @hasMany
+    paymentPlans: [PaymentPlan!] @hasMany
+    locations: [Location!] @belongsToMany
+}

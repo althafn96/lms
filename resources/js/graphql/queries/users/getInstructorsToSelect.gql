@@ -1,0 +1,11 @@
+query getInstructorsToSelect ($page: Int) {
+    instructors (page: $page) {
+        data {
+            id
+            full_name
+        }
+        paginatorInfo {
+            hasMorePages
+        }
+    }
+}

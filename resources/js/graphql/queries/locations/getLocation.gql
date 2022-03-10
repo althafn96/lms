@@ -1,0 +1,11 @@
+query getLocation($slug: String!) {
+    location(slug: $slug) {
+        id
+        name
+        address
+        phone_numbers
+        emails
+        humanized_updated_at
+        slug
+    }
+}

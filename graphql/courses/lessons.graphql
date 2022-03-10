@@ -1,0 +1,23 @@
+extend type Query {
+    lessons(title: String @where(operator: "like"), orderBy: _ @orderBy(columns: ["created_at"])): [Lesson!]! @paginate(defaultCount: 10)
+    lesson(slug: String! @eq): Lesson @first
+}
+
+type Lesson @model(class: "\\App\\Models\\Courses\\Lesson") {
+    id: ID!
+    title: String!
+    description: String
+    period: String
+    files: [LessonFile!] @hasMany
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type LessonFile @model(class: "\\App\\Models\\Courses\\LessonFile") {
+    id: ID!
+    name: String!
+    path: String!
+    getPathUrl: String! @field(resolver: "App\\Models\\Courses\\LessonFile@getPathUrl")
+    created_at: DateTime!
+    updated_at: DateTime!
+}

@@ -1,0 +1,25 @@
+query getInstructors ($page: Int, $name: String) {
+    instructors (page: $page, first_name: $name, last_name: $name, orderBy: [{ column: CREATED_AT, order: DESC }]) {
+        data {
+            full_name
+            bio
+            display_picture
+            humanized_created_at
+            slug
+            locations {
+                name
+                id
+            }
+        }
+        paginatorInfo {
+            count
+            currentPage
+            firstItem
+            hasMorePages
+            lastItem
+            lastPage
+            perPage
+            total
+        }
+    }
+}

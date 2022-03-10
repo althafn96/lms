@@ -1,0 +1,34 @@
+extend type Query {
+    locations(name: String @where(operator: "like"), orderBy: _ @orderBy(columns: ["created_at"])): [Location!]! @paginate(defaultCount: 10)
+    location(slug: String! @eq): Location @first
+}
+
+extend type Mutation {
+    createLocation(input: LocationInput! @spread): Location @create
+    updateLocation(id: ID!, input: LocationInput! @spread): Location @update
+    deleteLocation(id: ID!): Location @delete
+}
+
+input LocationInput {
+    name: String!
+    address: String
+    emails: String
+    phone_numbers: String
+    status: Int!
+}
+
+type Location @model(class: "\\App\\Models\\Locations\\Location") {
+    id: ID!
+    name: String!
+    address: String
+    phone_numbers: String
+    emails: String
+    slug: String
+    created_at: DateTime!
+    updated_at: DateTime!
+    humanized_created_at: String @field(resolver: "App\\Models\\Locations\\Location@humanizedCreatedAt")
+    humanized_updated_at: String @field(resolver: "App\\Models\\Locations\\Location@humanizedUpdatedAt")
+    courses: [Course!] @hasMany
+    instructors: [Instructor!] @hasMany
+    status: Boolean!
+}

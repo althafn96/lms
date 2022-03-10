@@ -1,0 +1,11 @@
+query getLocationsToSelect ($page: Int) {
+    locations (page: $page) {
+        data {
+            id
+            name
+        }
+        paginatorInfo {
+            hasMorePages
+        }
+    }
+}

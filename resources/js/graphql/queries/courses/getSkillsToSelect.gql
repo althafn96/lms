@@ -1,0 +1,11 @@
+query getSkillsToSelect ($page: Int) {
+    skills (page: $page) {
+        data {
+            id
+            title
+        }
+        paginatorInfo {
+            hasMorePages
+        }
+    }
+}

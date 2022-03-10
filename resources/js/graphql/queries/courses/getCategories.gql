@@ -1,0 +1,24 @@
+query getCategories ($page: Int, $name: String) {
+    categories (page: $page, name: $name, orderBy: [{ column: CREATED_AT, order: DESC }]) {
+        data {
+            name
+            icon
+            parent {
+                name
+            }
+            humanized_created_at
+            slug
+            image
+        }
+        paginatorInfo {
+            count
+            currentPage
+            firstItem
+            hasMorePages
+            lastItem
+            lastPage
+            perPage
+            total
+        }
+    }
+}

@@ -1,0 +1,40 @@
+mutation updateCourse (
+    $id: ID!,
+    $name: String!,
+    $short_description: String,
+    $long_description: String,
+    $prerequisites: String,
+    $thumbnail: Upload,
+    $cover_img: Upload,
+    $status: Int!,
+    $is_featured: Int,
+    $categories: CategoryBelongsToMany,
+    $skills: SkillBelongsToMany,
+    $instructors: InstructorBelongsToMany,
+    $faqs: FaqBelongsToMany,
+    $modules: ModuleHasMany,
+    $locations: LocationBelongsToMany
+) {
+    updateCourse (
+        id: $id,
+        input: {
+            name: $name,
+            short_description: $short_description,
+            long_description: $long_description,
+            prerequisites: $prerequisites,
+            thumbnail: $thumbnail,
+            cover_img: $cover_img,
+            status: $status,
+            is_featured: $is_featured,
+            categories: $categories,
+            skills: $skills,
+            instructors: $instructors,
+            faqs: $faqs,
+            modules: $modules,
+            locations: $locations
+        }
+    ) {
+        id
+        name
+    }
+}

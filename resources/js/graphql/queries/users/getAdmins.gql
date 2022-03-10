@@ -1,0 +1,20 @@
+query getAdmins ($page: Int, $name: String) {
+    admins (page: $page, first_name: $name, last_name: $name, orderBy: [{ column: CREATED_AT, order: DESC }]) {
+        data {
+            full_name
+            display_picture
+            humanized_created_at
+            slug
+        }
+        paginatorInfo {
+            count
+            currentPage
+            firstItem
+            hasMorePages
+            lastItem
+            lastPage
+            perPage
+            total
+        }
+    }
+}

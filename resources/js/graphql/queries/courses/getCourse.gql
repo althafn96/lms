@@ -1,0 +1,50 @@
+query getCourse($slug: String!) {
+    course(slug: $slug) {
+        id
+        name
+        short_description
+        long_description
+        thumbnail
+        cover_img
+        status
+        is_featured
+        slug
+        skills {
+            id
+            title
+        }
+        faqs {
+            id
+            question
+            answer
+        }
+        instructors {
+            id
+            full_name
+        }
+        locations {
+            id
+            name
+        }
+        categories {
+            id
+            name
+        }
+        modules {
+            id
+            name
+            description
+            lessons {
+                id
+                title
+                description
+                period
+                files {
+                    id
+                    getPathUrl
+                    name
+                }
+            }
+        }
+    }
+}

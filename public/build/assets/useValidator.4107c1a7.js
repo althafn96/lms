@@ -1,0 +1,1 @@
+import{r as l,t as o,l as t}from"./Bootstrap5.88c59918.js";const e=(r,a)=>l(r,{fields:a,plugins:{trigger:new o,bootstrap:new t({rowSelector:".fv-row",eleInvalidClass:"is-invalid",eleValidClass:"is-valid"})}});export{e as v};

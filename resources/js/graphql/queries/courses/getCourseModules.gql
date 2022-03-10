@@ -1,0 +1,23 @@
+query getCourseModules($slug: String!) {
+    course(slug: $slug) {
+        id
+        slug
+        name
+        modules {
+            id
+            name
+            description
+            lessons {
+                id
+                title
+                description
+                period
+                files {
+                    id
+                    getPathUrl
+                    name
+                }
+            }
+        }
+    }
+}

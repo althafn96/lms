@@ -1,0 +1,27 @@
+mutation updatePaymentPlan (
+    $id: ID!,
+    $title: String!,
+    $course_id: ID!,
+    $description: String,
+    $details: PaymentPlanDetailHasMany
+) {
+    updatePaymentPlan (
+        id: $id,
+        input: {
+            title: $title,
+            course_id: $course_id,
+            description: $description,
+            details: $details
+        }
+    ) {
+        id
+        title
+        description
+        details {
+            id
+            title
+            description
+            amount
+        }
+    }
+}

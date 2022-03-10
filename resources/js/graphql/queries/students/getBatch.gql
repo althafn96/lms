@@ -1,0 +1,20 @@
+query getBatch($slug: String!) {
+    batch(slug: $slug) {
+        id
+        name
+        course {
+            id
+            name
+        }
+        location {
+            id
+            name
+        }
+        commences_on
+        completes_on
+        enrollment_closes_on
+        alloted_count
+        humanized_updated_at
+        slug
+    }
+}

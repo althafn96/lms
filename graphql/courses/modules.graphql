@@ -1,0 +1,57 @@
+extend type Query {
+    modules(title: String @where(operator: "like"), orderBy: _ @orderBy(columns: ["created_at"])): [Module!]! @paginate(defaultCount: 10)
+    module(slug: String! @eq): Skill @first
+}
+
+extend type Mutation {
+    createModule(input: ModuleInput! @spread): Module @create
+    updateModule(id: ID!, input: ModuleInput! @spread): Module @update
+    deleteModule(id: ID!): Module @delete
+}
+
+input ModuleInput {
+    name: String!
+    course_id: ID!
+    description: String
+    lessons: ModuleLessonHasMany
+}
+
+input ModuleLessonHasMany {
+    create: [CreateModuleLessonHasMany!],
+    update: [UpdateModuleLessonHasMany!],
+    delete: [ID!]
+}
+
+input CreateModuleLessonHasMany {
+    title: String
+    description: String
+    period: String
+    files: ModuleLessonFileHasMany
+}
+
+input UpdateModuleLessonHasMany {
+    id: ID!
+    title: String
+    description: String
+    period: String
+    files: ModuleLessonFileHasMany
+}
+
+input ModuleLessonFileHasMany {
+    create: [CreateModuleLessonFileInput!],
+    delete: [ID!]
+}
+
+input CreateModuleLessonFileInput {
+    name: String
+    path: Upload
+}
+
+type Module @model(class: "\\App\\Models\\Courses\\Module") {
+    id: ID!
+    name: String!
+    description: String
+    lessons: [Lesson!] @hasMany
+    created_at: DateTime!
+    updated_at: DateTime!
+}

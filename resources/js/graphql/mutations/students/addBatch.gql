@@ -1,0 +1,24 @@
+mutation addBatch (
+    $name: String!,
+    $commences_on: String,
+    $completes_on: String,
+    $enrollment_closes_on: String,
+    $course: CourseBelongsTo,
+    $location: LocationBelongsTo,
+    $alloted_count: Int,
+) {
+    createBatch (
+        input: {
+            name: $name,
+            commences_on: $commences_on,
+            completes_on: $completes_on,
+            enrollment_closes_on: $enrollment_closes_on,
+            course: $course,
+            location: $location,
+            alloted_count: $alloted_count,
+        }
+    ) {
+        id
+        name
+    }
+}

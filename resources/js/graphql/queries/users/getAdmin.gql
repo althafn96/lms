@@ -1,0 +1,15 @@
+query getAdmin($slug: String!) {
+    admin(slug: $slug) {
+        id
+        first_name
+        last_name
+        display_picture
+        humanized_created_at
+        slug
+        user {
+            id
+            email
+            status
+        }
+    }
+}

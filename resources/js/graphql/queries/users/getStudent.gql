@@ -1,0 +1,17 @@
+query getStudent($slug: String!) {
+    student(slug: $slug) {
+        id
+        first_name
+        last_name
+        dob
+        gender
+        display_picture
+        humanized_created_at
+        slug
+        user {
+            id
+            email
+            status
+        }
+    }
+}

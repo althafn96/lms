@@ -1,0 +1,26 @@
+query getLocations ($page: Int, $name: String) {
+    locations (page: $page, name: $name, orderBy: [{ column: CREATED_AT, order: DESC }]) {
+        data {
+            name
+            address
+            phone_numbers
+            emails
+            humanized_updated_at
+            slug
+            instructors {
+                first_name
+                last_name
+            }
+        }
+        paginatorInfo {
+            count
+            currentPage
+            firstItem
+            hasMorePages
+            lastItem
+            lastPage
+            perPage
+            total
+        }
+    }
+}

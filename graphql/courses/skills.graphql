@@ -1,0 +1,24 @@
+extend type Query {
+    skills(title: String @where(operator: "like"), orderBy: _ @orderBy(columns: ["created_at"])): [Skill!]! @paginate(defaultCount: 10)
+    skill(slug: String! @eq): Skill @first
+}
+
+extend type Mutation {
+    createSkill(input: SkillInput! @spread): Skill @create
+    updateSkill(id: ID!, input: SkillInput! @spread): Skill @update
+    deleteSkill(id: ID!): Skill @delete
+}
+
+input SkillInput {
+    title: String!
+}
+
+type Skill @model(class: "\\App\\Models\\Courses\\Skill") {
+    id: ID!
+    title: String!
+    slug: String
+    created_at: DateTime!
+    updated_at: DateTime!
+    humanized_created_at: String @field(resolver: "App\\Models\\Courses\\Skill@humanizedCreatedAt")
+    humanized_updated_at: String @field(resolver: "App\\Models\\Courses\\Skill@humanizedUpdatedAt")
+}

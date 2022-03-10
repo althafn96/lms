@@ -1,0 +1,12 @@
+var d={kind:"Document",definitions:[{kind:"OperationDefinition",operation:"query",name:{kind:"Name",value:"getLocationsToSelect"},variableDefinitions:[{kind:"VariableDefinition",variable:{kind:"Variable",name:{kind:"Name",value:"page"}},type:{kind:"NamedType",name:{kind:"Name",value:"Int"}},directives:[]}],directives:[],selectionSet:{kind:"SelectionSet",selections:[{kind:"Field",name:{kind:"Name",value:"locations"},arguments:[{kind:"Argument",name:{kind:"Name",value:"page"},value:{kind:"Variable",name:{kind:"Name",value:"page"}}}],directives:[],selectionSet:{kind:"SelectionSet",selections:[{kind:"Field",name:{kind:"Name",value:"data"},arguments:[],directives:[],selectionSet:{kind:"SelectionSet",selections:[{kind:"Field",name:{kind:"Name",value:"id"},arguments:[],directives:[]},{kind:"Field",name:{kind:"Name",value:"name"},arguments:[],directives:[]}]}},{kind:"Field",name:{kind:"Name",value:"paginatorInfo"},arguments:[],directives:[],selectionSet:{kind:"SelectionSet",selections:[{kind:"Field",name:{kind:"Name",value:"hasMorePages"},arguments:[],directives:[]}]}}]}}]}}],loc:{start:0,end:207}};d.loc.source={body:`query getLocationsToSelect ($page: Int) {\r
+    locations (page: $page) {\r
+        data {\r
+            id\r
+            name\r
+        }\r
+        paginatorInfo {\r
+            hasMorePages\r
+        }\r
+    }\r
+}\r
+`,name:"GraphQL request",locationOffset:{line:1,column:1}};function l(e,n){if(e.kind==="FragmentSpread")n.add(e.name.value);else if(e.kind==="VariableDefinition"){var i=e.type;i.kind==="NamedType"&&n.add(i.name.value)}e.selectionSet&&e.selectionSet.selections.forEach(function(a){l(a,n)}),e.variableDefinitions&&e.variableDefinitions.forEach(function(a){l(a,n)}),e.definitions&&e.definitions.forEach(function(a){l(a,n)})}var s={};(function(){d.definitions.forEach(function(n){if(n.name){var i=new Set;l(n,i),s[n.name.value]=i}})})();function f(e,n){for(var i=0;i<e.definitions.length;i++){var a=e.definitions[i];if(a.name&&a.name.value==n)return a}}function m(e,n){var i={kind:e.kind,definitions:[f(e,n)]};e.hasOwnProperty("loc")&&(i.loc=e.loc);var a=s[n]||new Set,c=new Set,o=new Set;for(a.forEach(function(t){o.add(t)});o.size>0;){var u=o;o=new Set,u.forEach(function(t){if(!c.has(t)){c.add(t);var r=s[t]||new Set;r.forEach(function(v){o.add(v)})}})}return c.forEach(function(t){var r=f(e,t);r&&i.definitions.push(r)}),i}m(d,"getLocationsToSelect");export{d};

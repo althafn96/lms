@@ -1,0 +1,24 @@
+mutation updateAdmin (
+    $id: ID!,
+    $first_name: String!,
+    $last_name: String!,
+    $display_picture: Upload,
+    $user: AdminUserMorphOne
+) {
+    updateAdmin (
+        id: $id,
+        input: {
+            first_name: $first_name,
+            last_name: $last_name,
+            display_picture: $display_picture,
+            user: $user
+        }
+    ) {
+        full_name
+        slug
+        display_picture
+        user {
+            email
+        }
+    }
+}

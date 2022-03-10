@@ -1,0 +1,22 @@
+query getCourses ($page: Int, $name: String) {
+    courses (page: $page, name: $name, orderBy: [{ column: CREATED_AT, order: DESC }]) {
+        data {
+            name
+            thumbnail
+            short_description
+            humanized_created_at
+            humanized_updated_at
+            slug
+        }
+        paginatorInfo {
+            count
+            currentPage
+            firstItem
+            hasMorePages
+            lastItem
+            lastPage
+            perPage
+            total
+        }
+    }
+}

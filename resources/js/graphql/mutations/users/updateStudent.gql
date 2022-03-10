@@ -1,0 +1,28 @@
+mutation updateStudent (
+    $id: ID!,
+    $first_name: String!,
+    $last_name: String!,
+    $dob: String,
+    $gender: String,
+    $display_picture: Upload,
+    $contact_number: String,
+    $address: String,
+    $user: StudentUserMorphOne
+) {
+    updateStudent (
+        id: $id,
+        input: {
+            first_name: $first_name,
+            last_name: $last_name,
+            dob: $dob,
+            gender: $gender,
+            display_picture: $display_picture,
+            contact_number: $contact_number,
+            address: $address,
+            user: $user
+        }
+    ) {
+        full_name
+        slug
+    }
+}

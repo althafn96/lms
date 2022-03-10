@@ -1,0 +1,47 @@
+extend type Query {
+    batches(name: String @where(operator: "like"), orderBy: _ @orderBy(columns: ["created_at"])): [Batch!]! @paginate(defaultCount: 10)
+    batch(slug: String! @eq): Batch @first
+}
+
+extend type Mutation {
+    createBatch(input: BatchInput! @spread): Batch @create
+    updateBatch(id: ID!, input: BatchInput! @spread): Batch @update
+    deleteBatch(id: ID!): Batch @delete
+}
+
+input BatchInput {
+    name: String!
+    course: CourseBelongsTo
+    location: LocationBelongsTo
+    commences_on: String
+    completes_on: String
+    alloted_count: Int
+    enrollment_closes_on: String
+}
+
+input CourseBelongsTo {
+    connect: ID
+}
+
+input LocationBelongsTo {
+    connect: ID
+}
+
+type Batch @model(class: "\\App\\Models\\Students\\Batch") {
+    id: ID!
+    name: String!
+    course: Course @belongsTo
+    location: Location @belongsTo
+    commences_on: String
+    completes_on: String
+    alloted_count: Int
+    enrollment_closes_on: String
+    slug: String
+    created_at: DateTime!
+    updated_at: DateTime!
+    humanized_created_at: String @field(resolver: "App\\Models\\Students\\Batch@humanizedCreatedAt")
+    humanized_updated_at: String @field(resolver: "App\\Models\\Students\\Batch@humanizedUpdatedAt")
+    humanized_commences_on: String @field(resolver: "App\\Models\\Students\\Batch@humanizedCommencingOn")
+    humanized_completes_on: String @field(resolver: "App\\Models\\Students\\Batch@humanizedCompletingOn")
+    humanized_enrollments_closes_on: String @field(resolver: "App\\Models\\Students\\Batch@humanizedEnrollmentsClosesOn")
+}
